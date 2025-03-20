@@ -62,6 +62,7 @@ return {
       local lspconfig = require 'lspconfig'
 
       local servers = {
+        jdtls = {},
         bashls = true,
         gopls = {
           manual_install = true,
@@ -200,7 +201,7 @@ return {
           vim.keymap.set('n', 'gT', vim.lsp.buf.type_definition, { buffer = 0 })
           vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = 0 })
 
-          vim.keymap.set('n', '<space>cr', vim.lsp.buf.rename, { buffer = 0, desc="[C]ode [R]ename" })
+          vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, { buffer = 0, desc="[R]ename" })
           vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, { buffer = 0, desc="[C]ode [A]ction" })
           vim.keymap.set('n', '<space>wd', builtin.lsp_document_symbols, { buffer = 0, desc="[D]ocument symbols" })
 
