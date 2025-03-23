@@ -3,21 +3,21 @@ return {
     'neovim/nvim-lspconfig',
     dependencies = {
       {
-        'folke/lazydev.nvim',
+        'folke/lazydev.nvim', -- Configures lua lsp
         ft = 'lua',
         opts = {
           library = {
-            { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+            { path = 'luvit-meta/library',      words = { 'vim%.uv' } },
             { path = '/usr/share/awesome/lib/', words = { 'awesome' } },
           },
         },
       },
-      { 'Bilal2453/luvit-meta', lazy = true },
+      { 'Bilal2453/luvit-meta',                        lazy = true },
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',                           opts = {} },
       { 'https://git.sr.ht/~whynothugo/lsp_lines.nvim' },
 
       { 'elixir-tools/elixir-tools.nvim' },
@@ -61,7 +61,66 @@ return {
 
       local lspconfig = require 'lspconfig'
 
+
       local servers = {
+        rust_analyzer = {
+          settings = {
+            ["rust-analyzer"] = {
+              imports = {
+                granularity = { group = "module", },
+                prefix = "self",
+              },
+              cargo = {
+                buildScripts = { enable = true, },
+              },
+              procMacro = { enable = true },
+              diagnostics = { enable = true },
+            }
+          }
+        },
+        ts_ls = {},
+        omnisharp = {
+          cmd = { "dotnet", vim.fn.stdpath("data") .. "/mason/packages/omnisharp/libexec/OmniSharp.dll" },
+
+          settings = {
+            FormattingOptions = {
+              -- Enables support for reading code style, naming convention and analyzer
+              -- settings from .editorconfig.
+              EnableEditorConfigSupport = true,
+              -- Specifies whether 'using' directives should be grouped and sorted during
+              -- document formatting.
+              OrganizeImports = nil,
+            },
+            MsBuild = {
+              -- If true, MSBuild project system will only load projects for files that
+              -- were opened in the editor. This setting is useful for big C# codebases
+              -- and allows for faster initialization of code navigation features only
+              -- for projects that are relevant to code that is being edited. With this
+              -- setting enabled OmniSharp may load fewer projects and may thus display
+              -- incomplete reference lists for symbols.
+              LoadProjectsOnDemand = nil,
+            },
+            RoslynExtensionsOptions = {
+              -- Enables support for roslyn analyzers, code fixes and rulesets.
+              EnableAnalyzersSupport = nil,
+              -- Enables support for showing unimported types and unimported extension
+              -- methods in completion lists. When committed, the appropriate using
+              -- directive will be added at the top of the current file. This option can
+              -- have a negative impact on initial completion responsiveness,
+              -- particularly for the first few completion sessions after opening a
+              -- solution.
+              EnableImportCompletion = nil,
+              -- Only run analyzers against open files when 'enableRoslynAnalyzers' is
+              -- true
+              AnalyzeOpenDocumentsOnly = nil,
+            },
+            Sdk = {
+              -- Specifies whether to include preview versions of the .NET SDK when
+              -- determining which version to use for project loading.
+              IncludePrereleases = true,
+            },
+          },
+        },
         jdtls = {},
         bashls = true,
         gopls = {
@@ -185,7 +244,14 @@ return {
       vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(args)
           local bufnr = args.buf
+          local set = vim.keymap.set
+          local autocmd = vim.api.nvim_create_autocmd
+
           local client = assert(vim.lsp.get_client_by_id(args.data.client_id), 'must have valid client')
+
+          if not client then
+            return
+          end
 
           local settings = servers[client.name]
           if type(settings) ~= 'table' then
@@ -194,16 +260,25 @@ return {
 
           local builtin = require 'telescope.builtin'
 
-          vim.opt_local.omnifunc = 'v:lua.vim.lsp.omnifunc'
-          vim.keymap.set('n', 'gd', builtin.lsp_definitions, { buffer = 0 })
-          vim.keymap.set('n', 'gr', builtin.lsp_references, { buffer = 0 })
-          vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = 0 })
-          vim.keymap.set('n', 'gT', vim.lsp.buf.type_definition, { buffer = 0 })
-          vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = 0 })
+          if client:supports_method('textDocument/formatting') then
+            autocmd('BufWritePre', {
+              buffer = args.buf,
+              callback = function()
+                vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+              end
+            })
+          end
 
-          vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, { buffer = 0, desc="[R]ename" })
-          vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, { buffer = 0, desc="[C]ode [A]ction" })
-          vim.keymap.set('n', '<space>wd', builtin.lsp_document_symbols, { buffer = 0, desc="[D]ocument symbols" })
+          vim.opt_local.omnifunc = 'v:lua.vim.lsp.omnifunc'
+          set('n', 'gd', builtin.lsp_definitions, { buffer = 0 })
+          set('n', 'gr', builtin.lsp_references, { buffer = 0 })
+          set('n', 'gD', vim.lsp.buf.declaration, { buffer = 0 })
+          set('n', 'gT', vim.lsp.buf.type_definition, { buffer = 0 })
+          set('n', 'K', vim.lsp.buf.hover, { buffer = 0 })
+
+          set('n', '<space>rn', vim.lsp.buf.rename, { buffer = 0, desc = "[R]ename" })
+          set('n', '<space>ca', vim.lsp.buf.code_action, { buffer = 0, desc = "[C]ode [A]ction" })
+          set('n', '<space>wd', builtin.lsp_document_symbols, { buffer = 0, desc = "[D]ocument symbols" })
 
           local filetype = vim.bo[bufnr].filetype
           if disable_semantic_tokens[filetype] then
