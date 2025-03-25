@@ -4,9 +4,9 @@
 
 ## Installation
 
-* Fork this
-
 **Steps:**
+
+0. **Fork this**
 
 1. **Clone the Repository:**
 
