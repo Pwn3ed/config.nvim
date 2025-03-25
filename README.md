@@ -6,9 +6,9 @@
 
 **Steps:**
 
-0. **Fork this**
+1. **Fork this Repository**
 
-1. **Clone the Repository:**
+2. **Clone the Repository:**
 
    ```bash
 
@@ -16,7 +16,7 @@
 
    ```
 
-2. **Run Neovim:**
+3. **Run Neovim:**
 
    ```bash
 
@@ -28,7 +28,9 @@
 
 * You can keep your existing configuration with this installation method
 
-1. **Clone to `.config/config.nvim`:**
+1. **Fork this Repository**
+
+2. **Clone to `.config/config.nvim`:**
 
    ```bash
 
@@ -36,7 +38,7 @@
 
    ```
 
-2. **Create an Alias:**
+3. **Create an Alias:**
 
    ```bash
 
@@ -44,7 +46,7 @@
 
    ```
 
-3. **Run Neovim using the alias:**
+4. **Run Neovim using the alias:**
 
    ```bash
 
