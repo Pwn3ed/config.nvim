@@ -9,8 +9,8 @@ return {
       },
     },
     priority = 1000,
-    init = function ()
-      vim.cmd.colorscheme 'solarized-osaka'
+    init = function()
+      require 'config.colorscheme'
     end
   },
   "craftzdog/solarized-osaka.nvim",

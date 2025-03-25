@@ -1,3 +1,3 @@
 return {
-	{ 'leonardo-luz/floatwindow.nvim' }
+  { 'leonardo-luz/floatwindow.nvim' }
 }

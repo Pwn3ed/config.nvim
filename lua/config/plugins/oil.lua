@@ -8,11 +8,11 @@ return {
         show_hidden = true
       }
     },
-    init = function()
-      vim.keymap.set('n', '-', '<cmd>Oil<CR>')
-    end,
     dependencies = {
       { 'echasnovski/mini.icons', opts = {} },
     },
+    init = function()
+      require 'config.oil'
+    end,
   },
 }
