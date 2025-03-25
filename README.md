@@ -1,15 +1,10 @@
 ## config.nvim
 
-*my nvim config*
-
-This Neovim configuration is heavily inspired by `tjdevries/config.nvim`, `nvim-lua/kickstart.nvim`, and `ThePrimeagen/init.lua`.
+*Yanked some code from `tjdevries/config.nvim`, `nvim-lua/kickstart.nvim`, and `ThePrimeagen/init.lua`.*
 
 ## Installation
 
-**Prerequisites:**
-
-1. Neovim
-2. don't know...
+* Fork this
 
 **Steps:**
 
@@ -17,7 +12,7 @@ This Neovim configuration is heavily inspired by `tjdevries/config.nvim`, `nvim-
 
    ```bash
 
-   git clone https://github.com/leonardo-luz/config.nvim.git ${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+   git clone https://github.com/{your-username}/config.nvim.git ${XDG_CONFIG_HOME:-$HOME/.config}/nvim
 
    ```
 
@@ -37,7 +32,7 @@ This Neovim configuration is heavily inspired by `tjdevries/config.nvim`, `nvim-
 
    ```bash
 
-   git clone https://github.com/leonardo-luz/config.nvim.git ${XDG_CONFIG_HOME:-$HOME/.config}/config.nvim
+   git clone https://github.com/{your-username}/config.nvim.git ${XDG_CONFIG_HOME:-$HOME/.config}/config.nvim
 
    ```
 
