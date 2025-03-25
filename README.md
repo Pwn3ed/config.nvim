@@ -12,7 +12,7 @@
 
    ```bash
 
-   git clone https://github.com/{your-username}/config.nvim.git ${XDG_CONFIG_HOME:-$HOME/.config}/nvim
+   git clone https://github.com/{YOUR-USERNAME}/config.nvim.git ${XDG_CONFIG_HOME:-$HOME/.config}/nvim
 
    ```
 
@@ -32,7 +32,7 @@
 
    ```bash
 
-   git clone https://github.com/{your-username}/config.nvim.git ${XDG_CONFIG_HOME:-$HOME/.config}/config.nvim
+   git clone https://github.com/{YOUR-USERNAME}/config.nvim.git ${XDG_CONFIG_HOME:-$HOME/.config}/config.nvim
 
    ```
 
