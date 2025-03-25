@@ -8,13 +8,12 @@ return {
         opts = {
           library = {
             { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            { path = "wezterm-types",      mods = { "wezterm" } },
           },
         },
       },
-      {
-        'Bilal2453/luvit-meta',
-        lazy = true
-      },
+      { 'Bilal2453/luvit-meta',        lazy = true },
+      { 'justinsgithub/wezterm-types', lazy = true },
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
