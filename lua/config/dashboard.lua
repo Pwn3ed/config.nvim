@@ -12,15 +12,12 @@ local headers = {
     '| (__) || :\\/: || ()() |',
     "| '--'L|| '--'U|| '--'Z|",
     "`------'`------'`------'",
-    '                        ',
-    '                        ',
   },
   diam = {
     ' ▗▖█  ▐▌▄▄▄▄▄ ',
     ' ▐▌▀▄▄▞▘ ▄▄▄▀ ',
     ' ▐▌     █▄▄▄▄ ',
     ' ▐▙▄▄▖        ',
-    '              ',
     '              ',
   },
   bloody = {
@@ -34,7 +31,6 @@ local headers = {
     '  ░ ░    ░░░   ░ ░ ░ ░   ░',
     '    ░  ░   ░       ░      ',
     '                 ░        ',
-    '                          ',
   },
 }
 
@@ -59,7 +55,17 @@ local function get_quotes(num)
     { ' ', 'Challenges are what make life interesting. Overcoming them is what makes life meaningful.', (" "):rep(22) .. '- Joshua Marine' },
   }
 
-  return quotes[num or math.random(#quotes)]
+  local quote = {}
+
+  for _, line in pairs(quotes[num or math.random(#quotes)]) do
+    table.insert(quote, line)
+  end
+
+  for _ = 1, 9 do
+    table.insert(quote, ' ')
+  end
+
+  return quote
 end
 
 local function item(desc, key, action)
@@ -76,14 +82,29 @@ local function item(desc, key, action)
 end
 
 local function opts(theme, header)
+  local _header = {}
+
+  for _ = 1, 8 do
+    table.insert(_header, ' ')
+  end
+
+  for _, line in pairs(headers[header] or {}) do
+    table.insert(_header, line)
+  end
+
+  for _ = 1, 2 do
+    table.insert(_header, ' ')
+  end
+
   if theme == 'doom' then
     return {
       theme = 'doom',
       config = {
-        header = headers[header] or {},
+        header = _header,
         disable_move = true,
         center = {
           item("Update", "u", "Lazy update"),
+          item("Edit New File", "e", 'enew'),
           item("Files", "f", "Telescope find_files"),
           item("Nvim config", "n", 'Telescope find_files cwd=' .. vim.fn.stdpath 'config'),
           item("Telescope", "t", 'Telescope'),
@@ -97,7 +118,7 @@ local function opts(theme, header)
       theme = 'hyper',
       disable_move = true,
       config = {
-        header = headers[header] or {},
+        header = _header,
         shortcut = {
           { desc = '󰊳 Update', group = '@property', action = 'Lazy update', key = 'u' },
           {
