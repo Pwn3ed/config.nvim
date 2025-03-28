@@ -1,7 +1,11 @@
 local dashboard = require 'dashboard'
+local asciis = {}
+
+pcall(function()
+  asciis = require 'custom.dashboard'
+end)
 
 local current_header = 'bloody'
-
 local current_setup = 'doom'
 
 local headers = {
@@ -34,25 +38,29 @@ local headers = {
   },
 }
 
+for key, ascii in pairs(asciis) do
+  headers[key] = ascii
+end
+
 ---@param num number|nil
 ---@return table
 local function get_quotes(num)
   local quotes = {
     {
       ' ',
-      'The only way to do great work is to love what you do.',
-      "If you haven't found it yet, keep looking. Don't settle.",
+      '\"The only way to do great work is to love what you do.',
+      "If you haven't found it yet, keep looking. Don't settle.\"",
       '- Steve Jobs',
     },
-    { ' ', 'Be the change that you wish to see in the world.',                                          (" "):rep(22) .. '- Mahatma Gandhi' },
-    { ' ', 'The journey of a thousand miles begins with a single step.',                                (" "):rep(22) .. '- Lao Tzu' },
-    { ' ', "Believe you can and you're halfway there.",                                                 (" "):rep(22) .. '- Theodore Roosevelt' },
-    { ' ', 'The only limit to our realization of tomorrow will be our doubts of today.',                (" "):rep(22) .. '- Franklin D. Roosevelt' },
-    { ' ', 'Keep your face always toward the sunshine, and shadows will fall behind you.',              (" "):rep(22) .. '- Walt Whitman' },
-    { ' ', 'Not how long, but how well you have lived is the main thing.',                              (" "):rep(22) .. '- Seneca' },
-    { ' ', "Life is what happens when you're busy making other plans.",                                 (" "):rep(22) .. '- John Lennon' },
-    { ' ', 'Happiness is not something ready made. It comes from your own actions.',                    (" "):rep(22) .. '- Dalai Lama' },
-    { ' ', 'Challenges are what make life interesting. Overcoming them is what makes life meaningful.', (" "):rep(22) .. '- Joshua Marine' },
+    { ' ', '\"Be the change that you wish to see in the world.\"',                                          (" "):rep(22) .. '- Mahatma Gandhi' },
+    { ' ', '\"The journey of a thousand miles begins with a single step.\"',                                (" "):rep(22) .. '- Lao Tzu' },
+    { ' ', "\"Believe you can and you're halfway there.\"",                                                 (" "):rep(22) .. '- Theodore Roosevelt' },
+    { ' ', '\"The only limit to our realization of tomorrow will be our doubts of today.\"',                (" "):rep(22) .. '- Franklin D. Roosevelt' },
+    { ' ', '\"Keep your face always toward the sunshine, and shadows will fall behind you.\"',              (" "):rep(22) .. '- Walt Whitman' },
+    { ' ', '\"Not how long, but how well you have lived is the main thing.\"',                              (" "):rep(22) .. '- Seneca' },
+    { ' ', "\"Life is what happens when you're busy making other plans.\"",                                 (" "):rep(22) .. '- John Lennon' },
+    { ' ', '\"Happiness is not something ready made. It comes from your own actions.\"',                    (" "):rep(22) .. '- Dalai Lama' },
+    { ' ', '\"Challenges are what make life interesting. Overcoming them is what makes life meaningful.\"', (" "):rep(22) .. '- Joshua Marine' },
   }
 
   local quote = {}
