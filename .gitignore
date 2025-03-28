@@ -1,6 +1,8 @@
 .env
 .env*
 
+json/*
+
 lua/custom/plugins/*
 lua/custom/*.lua
 !lua/custom/plugins/init.lua

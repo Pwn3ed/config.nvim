@@ -42,6 +42,14 @@ for key, ascii in pairs(asciis) do
   headers[key] = ascii
 end
 
+local lenght = 0
+
+for _, value in pairs(headers) do
+  if #value > lenght then
+    lenght = #value
+  end
+end
+
 ---@param num number|nil
 ---@return table
 local function get_quotes(num)
@@ -69,7 +77,7 @@ local function get_quotes(num)
     table.insert(quote, line)
   end
 
-  for _ = 1, 9 do
+  for _ = 1, (10 + 4) - #quote - math.floor((#headers[current_header] or 0) / 2) do
     table.insert(quote, ' ')
   end
 
@@ -92,7 +100,7 @@ end
 local function opts(theme, header)
   local _header = {}
 
-  for _ = 1, 8 do
+  for _ = 1, ((7 + math.floor(lenght / 2)) - (math.floor(#header / 2))) do
     table.insert(_header, ' ')
   end
 
@@ -100,7 +108,7 @@ local function opts(theme, header)
     table.insert(_header, line)
   end
 
-  for _ = 1, 2 do
+  for _ = 1, ((2 + math.floor(lenght / 2)) - (math.floor(#header / 2))) do
     table.insert(_header, ' ')
   end
 
