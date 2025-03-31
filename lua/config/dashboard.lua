@@ -1,3 +1,4 @@
+local time = require 'time'
 local dashboard = require 'dashboard'
 local asciis = {}
 
@@ -97,7 +98,7 @@ local function item(desc, key, action)
   }
 end
 
-local function opts(theme, header)
+local function set_header(header)
   local _header = {}
 
   for _ = 1, ((7 + math.floor(lenght / 2)) - (math.floor(#header / 2))) do
@@ -108,16 +109,27 @@ local function opts(theme, header)
     table.insert(_header, line)
   end
 
-  for _ = 1, ((2 + math.floor(lenght / 2)) - (math.floor(#header / 2))) do
+  table.insert(_header, ' ')
+  time.update_time()
+  table.insert(_header, time.formated_time())
+
+  for _ = 1, ((math.floor(lenght / 2)) - (math.floor(#header / 2))) do
     table.insert(_header, ' ')
   end
+
+  return _header
+end
+
+local function opts(theme, header)
+  local _header = set_header(header)
 
   if theme == 'doom' then
     return {
       theme = 'doom',
+      disable_move = false,
       config = {
         header = _header,
-        disable_move = true,
+        disable_move = false,
         center = {
           item("Update", "u", "Lazy update"),
           item("Edit New File", "e", 'enew'),
@@ -125,6 +137,8 @@ local function opts(theme, header)
           item("Nvim config", "n", 'Telescope find_files cwd=' .. vim.fn.stdpath 'config'),
           item("Telescope", "t", 'Telescope'),
         },
+        hide = {},
+        preview = {},
         vertical_center = true,
         footer = get_quotes(),
       },
@@ -163,8 +177,12 @@ local function opts(theme, header)
 end
 
 local function new_quote()
-  local quotes = table.concat(get_quotes(), " ")
-  vim.cmd("DashboardUpdateFooter " .. quotes)
+  dashboard:get_opts(function(obj)
+    obj.config.header = set_header(current_header)
+    obj.config.footer = get_quotes()
+
+    dashboard:load_theme(obj)
+  end)
 end
 
 vim.api.nvim_create_user_command("DashboardQuote", function()

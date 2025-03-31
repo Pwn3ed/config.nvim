@@ -50,6 +50,7 @@ local servers = {
       }
     }
   },
+  html = {},
   ts_ls = {},
   omnisharp = {
     cmd = { "dotnet", vim.fn.stdpath("data") .. "/mason/packages/omnisharp/libexec/OmniSharp.dll" },
@@ -75,7 +76,6 @@ local servers = {
   jdtls = {},
   bashls = true,
   gopls = {
-    manual_install = true,
     settings = {
       gopls = {
         hints = {
@@ -108,11 +108,11 @@ local servers = {
     },
   },
 
-  -- cssls = {
-  --   server_capabilities = {
-  --     documentFormattingProvider = false,
-  --   },
-  -- },
+  cssls = {
+    server_capabilities = {
+      documentFormattingProvider = false,
+    },
+  },
 
   yamlls = {
     settings = {

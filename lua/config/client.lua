@@ -1,0 +1,3 @@
+return {
+  { 'neovim/go-client' }
+}
