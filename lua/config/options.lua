@@ -2,7 +2,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 vim.g.have_nerd_font = true
-vim.opt.shell = 'zsh'
+-- vim.opt.shell = 'zsh'
 vim.opt.showmode = false
 vim.opt.number = true
 vim.opt.relativenumber = true

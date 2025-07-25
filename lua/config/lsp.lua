@@ -75,21 +75,21 @@ local servers = {
   },
   jdtls = {},
   bashls = true,
-  gopls = {
-    settings = {
-      gopls = {
-        hints = {
-          assignVariableTypes = true,
-          compositeLiteralFields = true,
-          compositeLiteralTypes = true,
-          constantValues = true,
-          functionTypeParameters = true,
-          parameterNames = true,
-          rangeVariableTypes = true,
-        },
-      },
-    },
-  },
+  -- gopls = {
+  --   settings = {
+  --     gopls = {
+  --       hints = {
+  --         assignVariableTypes = true,
+  --         compositeLiteralFields = true,
+  --         compositeLiteralTypes = true,
+  --         constantValues = true,
+  --         functionTypeParameters = true,
+  --         parameterNames = true,
+  --         rangeVariableTypes = true,
+  --       },
+  --     },
+  --   },
+  -- },
   lua_ls = {
     server_capabilities = {
       semanticTokensProvider = vim.NIL,

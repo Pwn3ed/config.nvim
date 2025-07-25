@@ -6,7 +6,7 @@ pcall(function()
   asciis = require 'custom.dashboard'
 end)
 
-local current_header = 'bloody'
+local current_header = 'ascii_3'
 local current_setup = 'doom'
 
 local headers = {
